@@ -26,6 +26,7 @@ public class PagingServlet extends HttpServlet {
                 {
                     pos--;
                     session.setAttribute("allPagePos",pos);
+                    session.setAttribute("style","all");
                 }
             }
             else if("one".equals(message_list_style))
@@ -35,6 +36,7 @@ public class PagingServlet extends HttpServlet {
                 {
                     pos--;
                     session.setAttribute("onePagePos",pos);
+                    session.setAttribute("style","one");
                 }
             }
 
@@ -49,6 +51,7 @@ public class PagingServlet extends HttpServlet {
                 {
                     pos++;
                     session.setAttribute("allPagePos", pos);
+                    session.setAttribute("style","all");
                 }
             }
             else if("one".equals(message_list_style))
@@ -59,6 +62,7 @@ public class PagingServlet extends HttpServlet {
                 if((pos+1)*10 < count) {
                     pos++;
                     session.setAttribute("onePagePos",pos);
+                    session.setAttribute("style","one");
                 }
             }
         }

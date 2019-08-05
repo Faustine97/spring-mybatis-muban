@@ -5,12 +5,12 @@ public class ListInfo {
     private int start;
     private int count;
 
-    public String getUserName() {
+    public String getUser_name() {
         return user_name;
     }
 
-    public void setUserName(String userName) {
-        this.user_name = userName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public int getStart() {

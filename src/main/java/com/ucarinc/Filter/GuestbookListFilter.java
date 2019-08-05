@@ -18,7 +18,19 @@ public class GuestbookListFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest)req;
         HttpSession session = request.getSession();
-        String style = request.getParameter("style");
+
+        String style ;
+        if(session.getAttribute("style")==null)
+        {
+            style = request.getParameter("style");
+        }
+        else
+        {
+            if(!"".equals(request.getParameter("style")))
+                style = request.getParameter("style");
+            else
+                style = (String)session.getAttribute("style");
+        }
         // 从session中的allPagePos属性获取当前页数，第一次进来是null，需要对allPagePos赋值
         // 从session中的onePagePos属性获取当前页数，第一次进来是null，需要对onePagePos赋值
         if(null == session.getAttribute("pagePos"))
@@ -40,14 +52,14 @@ public class GuestbookListFilter implements Filter {
         if(null==style || "".equals(style) || "all".equals(style))
         {
             int pos = (Integer)session.getAttribute("allPagePos");
-            session.setAttribute("Guestbooks", helper.getAllGuestbooks(pos,count));
+            session.setAttribute("Guestbooks", helper.getAllGuestbooks(pos*count,count));
             session.setAttribute("message_list_style", "all");
         }
         else
         {
             int pos = (Integer)session.getAttribute("onePagePos");
             String user_name = (String)session.getAttribute("user");
-            session.setAttribute("Guestbooks", helper.getUserGuestbooks(user_name,pos,count));
+            session.setAttribute("Guestbooks", helper.getUserGuestbooks(user_name,pos*count,count));
             session.setAttribute("message_list_style_user_name", user_name);
             session.setAttribute("message_list_style", "one");
         }
