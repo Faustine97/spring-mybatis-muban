@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ucarinc.dao.GuestbookMapper">
+    <insert id="addGuestbook" parameterType="com.ucarinc.bean.Guestbook">
+        INSERT INTO `guestbook` (`message_title`, `message_content`, `message_create_time`, `message_edit_time`, `user_id`) VALUES (#{message_title}, #{message_content}, #{message_create_time}, #{message_edit_time}, #{user_id})
+    </insert>
+    <delete id="deleteGuestbook" parameterType="com.ucarinc.bean.Guestbook" >
+        delete from guestbook where message_id = #{message_id}
+    </delete>
+    <update id="updateGuestbook" parameterType="com.ucarinc.bean.Guestbook" >
+        update guestbook set message_title=#{message_title}, message_content=#{message_content},  message_edit_time=#{message_edit_time} where message_id=#{message_id}
+    </update>
+    <select id="getAllGuestbooks" parameterType="com.ucarinc.bean.ListInfo" resultType="com.ucarinc.bean.Guestbook">
+        SELECT * from guestbook limit #{start},#{count}
+    </select>
+    <select id="getAllGuestbooks2" resultType="com.ucarinc.bean.Guestbook">
+        SELECT * from guestbook
+    </select>
+    <select id="getUserGuestbooks" parameterType="String" resultType="com.ucarinc.bean.Guestbook">
+        SELECT * from guestbook INNER JOIN `user` on guestbook.user_id = `user`.user_id and `user`.user_name = #{user_name}
+    </select>
+    <select id="getUserGuestbooks2" parameterType="com.ucarinc.bean.ListInfo" resultType="com.ucarinc.bean.Guestbook">
+        SELECT * from guestbook INNER JOIN `user` on guestbook.user_id = `user`.user_id and `user`.user_name = #{user_name} limit #{start},#{count}
+    </select>
+    <select id="getUserGuestbooksCount" parameterType="String" resultType="Integer">
+        SELECT count(*) from guestbook INNER join (SELECT user_id from `user` where `user`.user_name=#{user_name}) as t on t.user_id = guestbook.user_id
+    </select>
+    <select id="getAllGuestbooksCount" resultType="Integer">
+        SELECT count(*) from guestbook
+    </select>
+
+
+
+
+</mapper>

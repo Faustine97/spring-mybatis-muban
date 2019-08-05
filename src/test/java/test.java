@@ -10,7 +10,7 @@ public class test {
     public static void main(String[] args) {
         ApplicationContext ac =new ClassPathXmlApplicationContext("applicationContext.xml");
         SqlSessionTemplate sqlSession = ac.getBean("sqlSession", SqlSessionTemplate.class);
-        List<Student> list = sqlSession.selectList("getStudentList");
+        List<Student> list = sqlSession.selectList("getUserList");
         System.out.println(list);
     }
 }
